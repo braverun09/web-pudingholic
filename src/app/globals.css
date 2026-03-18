@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-outfit), ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --color-primary: #7A4B1D;
+  --color-background-soft: #F5EEDB;
+  --color-secondary-1: #A67C52;
+  --color-secondary-2: #D6BFA9;
+  --color-accent-sage: #8FB996;
+  --color-background: var(--color-background-soft);
+  --color-foreground: var(--color-primary);
+  /* Keeping caramel/gold for specific pudding highlights, but muted */
+  --color-caramel: var(--color-secondary-1);
+  --color-gold: var(--color-secondary-2);
+}
+
+@layer base {
+  :root {
+    --background: #F5EEDB;
+    --foreground: #7A4B1D;
+  }
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Lenis default styles */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
