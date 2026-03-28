@@ -1,9 +1,15 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { toppings } from "@/data/products";
 
-export default function ToppingSection() {
+export interface Topping {
+    id?: string;
+    name: string;
+    description: string;
+    emoji: string;
+}
+
+export default function ToppingSection({ toppings }: { toppings: Topping[] }) {
     return (
         <section className="py-24 px-6 md:px-12 bg-background border-t border-foreground/10 text-foreground" id="toppings">
             <div className="max-w-7xl mx-auto">

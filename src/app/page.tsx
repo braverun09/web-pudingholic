@@ -8,18 +8,28 @@ import StatsSection from "@/components/StatsSection";
 import TestimonialSlider from "@/components/TestimonialSlider";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
+import { createClient } from "@/lib/supabase/server";
 
-export default function Home() {
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
+export default async function Home() {
+  const supabase = await createClient();
+  
+  const { data: products } = await supabase.from('products').select('*').order('created_at', { ascending: true });
+  const { data: toppings } = await supabase.from('toppings').select('*').order('created_at', { ascending: true });
+  const { data: testimonials } = await supabase.from('testimonials').select('*').order('created_at', { ascending: true });
+
   return (
     <main className="bg-background min-h-screen">
       <Preloader />
       <Navbar />
       <SequenceScroll />
-      <FlavorSection />
-      <ToppingSection />
+      <FlavorSection products={products || []} />
+      <ToppingSection toppings={toppings || []} />
       <AboutSection />
       <StatsSection />
-      <TestimonialSlider />
+      <TestimonialSlider testimonials={testimonials || []} />
       <CTASection />
       <Footer />
     </main>

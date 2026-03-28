@@ -3,9 +3,15 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 
-import { products } from "@/data/products";
+export interface Product {
+    id?: string;
+    name: string;
+    description: string;
+    image: string;
+    colSpan: string;
+}
 
-export default function FlavorSection() {
+export default function FlavorSection({ products }: { products: Product[] }) {
     return (
         <section className="py-24 md:py-32 px-6 md:px-12 bg-background text-foreground" id="flavors">
             <div className="max-w-7xl mx-auto">
