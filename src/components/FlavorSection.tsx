@@ -8,7 +8,7 @@ export interface Product {
     name: string;
     description: string;
     image: string;
-    colSpan: string;
+    colspan: string;
 }
 
 export default function FlavorSection({ products }: { products: Product[] }) {
@@ -38,8 +38,8 @@ export default function FlavorSection({ products }: { products: Product[] }) {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, margin: "-50px" }}
                             transition={{ duration: 0.6, delay: index * 0.1 }}
-                            className={`group relative overflow-hidden rounded-3xl bg-[#EBE3D0] aspect-square md:aspect-auto ${flavor.colSpan
-                                } ${flavor.colSpan === "col-span-1 md:col-span-2" ? "md:min-h-[400px]" : "md:h-[400px]"}`}
+                            className={`group relative overflow-hidden rounded-3xl bg-[#EBE3D0] aspect-square md:aspect-auto ${flavor.colspan
+                                } ${flavor.colspan === "col-span-1 md:col-span-2" ? "md:min-h-[400px]" : "md:h-[400px]"}`}
                         >
                             <div className="absolute inset-0 w-full h-full">
                                 <Image

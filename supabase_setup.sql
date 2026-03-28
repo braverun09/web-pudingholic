@@ -58,8 +58,19 @@ ALTER TABLE public.testimonials ENABLE ROW LEVEL SECURITY;
 
 -- Create Policies (Public Read Access)
 CREATE POLICY "Allow public read access for products" ON public.products FOR SELECT USING (true);
+CREATE POLICY "Allow authenticated insert for products" ON public.products FOR INSERT TO authenticated WITH CHECK (true);
+CREATE POLICY "Allow authenticated update for products" ON public.products FOR UPDATE TO authenticated USING (true);
+CREATE POLICY "Allow authenticated delete for products" ON public.products FOR DELETE TO authenticated USING (true);
+
 CREATE POLICY "Allow public read access for toppings" ON public.toppings FOR SELECT USING (true);
+CREATE POLICY "Allow authenticated insert for toppings" ON public.toppings FOR INSERT TO authenticated WITH CHECK (true);
+CREATE POLICY "Allow authenticated update for toppings" ON public.toppings FOR UPDATE TO authenticated USING (true);
+CREATE POLICY "Allow authenticated delete for toppings" ON public.toppings FOR DELETE TO authenticated USING (true);
+
 CREATE POLICY "Allow public read access for testimonials" ON public.testimonials FOR SELECT USING (true);
+CREATE POLICY "Allow authenticated insert for testimonials" ON public.testimonials FOR INSERT TO authenticated WITH CHECK (true);
+CREATE POLICY "Allow authenticated update for testimonials" ON public.testimonials FOR UPDATE TO authenticated USING (true);
+CREATE POLICY "Allow authenticated delete for testimonials" ON public.testimonials FOR DELETE TO authenticated USING (true);
 
 -- 4. Create Storage Bucket for Images
 INSERT INTO storage.buckets (id, name, public) VALUES ('products', 'products', true) ON CONFLICT (id) DO NOTHING;

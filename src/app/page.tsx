@@ -11,6 +11,7 @@ import Footer from "@/components/Footer";
 import { createClient } from "@/lib/supabase/server";
 
 export const dynamic = 'force-dynamic';
+export const fetchCache = 'force-no-store';
 export const revalidate = 0;
 
 export default async function Home() {

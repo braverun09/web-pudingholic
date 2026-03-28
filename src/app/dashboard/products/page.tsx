@@ -8,13 +8,13 @@ interface Product {
     name: string;
     description: string;
     image: string;
-    colSpan: string;
+    colspan: string;
 }
 
 export default function ProductsPage() {
     const [products, setProducts] = useState<Product[]>([]);
     const [loading, setLoading] = useState(true);
-    const [form, setForm] = useState<Partial<Product>>({ name: "", description: "", image: "", colSpan: "col-span-1" });
+    const [form, setForm] = useState<Partial<Product>>({ name: "", description: "", image: "", colspan: "col-span-1" });
     const [isEditing, setIsEditing] = useState(false);
     const [file, setFile] = useState<File | null>(null);
     const [saving, setSaving] = useState(false);
@@ -57,22 +57,24 @@ export default function ProductsPage() {
         }
 
         if (isEditing && form.id) {
-            await supabase.from("products").update({
+            const { error: updateError } = await supabase.from("products").update({
                 name: form.name,
                 description: form.description,
                 image: finalImageUrl,
-                colSpan: form.colSpan
+                colspan: form.colspan
             }).eq("id", form.id);
+            if (updateError) alert("Gagal update produk: " + updateError.message);
         } else {
-            await supabase.from("products").insert([{
+            const { error: insertError } = await supabase.from("products").insert([{
                 name: form.name,
                 description: form.description,
                 image: finalImageUrl,
-                colSpan: form.colSpan
+                colspan: form.colspan
             }]);
+            if (insertError) alert("Gagal tambah produk: " + insertError.message);
         }
         
-        setForm({ name: "", description: "", image: "", colSpan: "col-span-1" });
+        setForm({ name: "", description: "", image: "", colspan: "col-span-1" });
         setFile(null);
         setIsEditing(false);
         setSaving(false);
@@ -119,7 +121,7 @@ export default function ProductsPage() {
                         </div>
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1">Grid Column Span</label>
-                            <select value={form.colSpan || "col-span-1"} onChange={e => setForm({ ...form, colSpan: e.target.value })} className="w-full px-4 py-2 border rounded-lg">
+                            <select value={form.colspan || "col-span-1"} onChange={e => setForm({ ...form, colspan: e.target.value })} className="w-full px-4 py-2 border rounded-lg">
                                 <option value="col-span-1">Small (1 Column)</option>
                                 <option value="col-span-1 md:col-span-2">Large (2 Columns)</option>
                             </select>
@@ -130,7 +132,7 @@ export default function ProductsPage() {
                             {saving ? "Saving Data..." : (isEditing ? "Update Product" : "Save Product")}
                         </button>
                         {isEditing && (
-                            <button type="button" onClick={() => { setIsEditing(false); setForm({ name: "", description: "", image: "", colSpan: "col-span-1" }); setFile(null); }} className="bg-gray-200 text-gray-800 px-6 py-2 rounded-lg hover:bg-gray-300">
+                            <button type="button" onClick={() => { setIsEditing(false); setForm({ name: "", description: "", image: "", colspan: "col-span-1" }); setFile(null); }} className="bg-gray-200 text-gray-800 px-6 py-2 rounded-lg hover:bg-gray-300">
                                 Cancel
                             </button>
                         )}
