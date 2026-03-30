@@ -40,10 +40,10 @@ export default function ToppingSection({ toppings }: { toppings: Topping[] }) {
                             className="bg-white rounded-2xl p-6 md:p-8 flex flex-col items-center text-center border border-foreground/10 shadow-sm hover:shadow-md transition-all hover:-translate-y-1 duration-300"
                         >
                             <div className="w-20 h-20 rounded-full bg-secondary-1/10 flex items-center justify-center mb-4 text-3xl overflow-hidden relative border-4 border-white shadow-sm">
-                                {topping.image ? (
+                                {topping.image && (topping.image.startsWith('http') || topping.image.startsWith('/')) ? (
                                     <Image src={topping.image} alt={topping.name} fill className="object-cover" sizes="80px" />
                                 ) : (
-                                    <span>🍬</span>
+                                    <span>{topping.image || "🍬"}</span>
                                 )}
                             </div>
                             <h3 className="text-xl font-semibold mb-2">{topping.name}</h3>
