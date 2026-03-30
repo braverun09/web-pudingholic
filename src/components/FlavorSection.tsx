@@ -11,23 +11,40 @@ export interface Product {
     colspan: string;
 }
 
-export default function FlavorSection({ products }: { products: Product[] }) {
+export default function FlavorSection({ 
+    title = "Simfoni Rasa.", 
+    description = "Setiap cup dibuat dengan cermat untuk memastikan keseimbangan sempurna antara rasa manis dan tekstur.", 
+    products, 
+    index = 0 
+}: { 
+    title?: string;
+    description?: string;
+    products: Product[];
+    index?: number;
+}) {
+    const isEven = index % 2 === 0;
+    
     return (
-        <section className="py-24 md:py-32 px-6 md:px-12 bg-background text-foreground" id="flavors">
+        <section className={`py-24 md:py-32 px-6 md:px-12 ${isEven ? 'bg-background' : 'bg-[#f4efe6] shadow-inner'} text-foreground overflow-hidden`} id={`category-${index}`}>
             <div className="max-w-7xl mx-auto">
                 <motion.div
                     initial={{ opacity: 0, y: 50 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-100px" }}
                     transition={{ duration: 0.8, ease: "easeOut" }}
-                    className="mb-16 md:mb-24"
+                    className="mb-16 md:mb-24 flex flex-col md:flex-row md:items-end justify-between gap-6"
                 >
-                    <h2 className="text-4xl md:text-6xl font-bold tracking-tight mb-4">
-                        Simfoni Rasa.
-                    </h2>
-                    <p className="text-lg md:text-xl opacity-80 max-w-2xl">
-                        Setiap cup dibuat dengan cermat untuk memastikan keseimbangan sempurna antara rasa manis dan tekstur.
-                    </p>
+                    <div className="max-w-2xl">
+                        <div className="inline-block px-4 py-1.5 rounded-full border border-emerald-600/20 bg-emerald-50 text-emerald-700 text-sm font-semibold tracking-wider uppercase mb-6">
+                            Menu Kategori
+                        </div>
+                        <h2 className="text-4xl md:text-6xl font-bold tracking-tight mb-4 text-gray-900">
+                            {title}
+                        </h2>
+                        <p className="text-lg md:text-xl opacity-80 text-gray-600">
+                            {description}
+                        </p>
+                    </div>
                 </motion.div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">

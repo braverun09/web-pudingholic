@@ -24,10 +24,13 @@ export default async function DashboardLayout({ children }: { children: React.Re
                 </div>
                 <nav className="flex-1 px-4 py-4 md:py-6 flex md:flex-col overflow-x-auto whitespace-nowrap gap-2 md:gap-2 snap-x scrollbar-hide">
                     <Link href="/dashboard" className="snap-start block px-4 py-2 md:py-3 text-sm font-medium rounded-xl hover:bg-gray-50 transition-colors bg-gray-50 md:bg-transparent">
-                        Overview
+                        📊 Ikhtisar Toko
                     </Link>
-                    <Link href="/dashboard/products" className="snap-start block px-4 py-2 md:py-3 text-sm font-medium rounded-xl hover:bg-gray-50 transition-colors border border-gray-100 md:border-transparent">
-                        📦 Products Catalog
+                    <Link href="/dashboard/categories" className="snap-start block px-4 py-2 md:py-3 text-sm font-medium rounded-xl hover:bg-emerald-50 text-gray-700 hover:text-emerald-700 transition-all border border-gray-100 md:border-transparent">
+                        📂 Kategori Menu
+                    </Link>
+                    <Link href="/dashboard/products" className="snap-start block px-4 py-2 md:py-3 text-sm font-medium rounded-xl hover:bg-emerald-50 text-gray-700 hover:text-emerald-700 transition-all border border-gray-100 md:border-transparent">
+                        📦 Katalog Produk
                     </Link>
                     <Link href="/dashboard/toppings" className="snap-start block px-4 py-2 md:py-3 text-sm font-medium rounded-xl hover:bg-gray-50 transition-colors border border-gray-100 md:border-transparent">
                         🍫 Toppings

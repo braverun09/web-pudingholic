@@ -10,8 +10,22 @@ CREATE TABLE IF NOT EXISTS public.products (
     description TEXT NOT NULL,
     image TEXT NOT NULL,
     colSpan TEXT NOT NULL DEFAULT 'col-span-1',
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
+    category_id UUID
+);
+
+-- 1.5 Create Categories Table
+CREATE TABLE IF NOT EXISTS public.categories (
+    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    name TEXT NOT NULL,
+    description TEXT NOT NULL,
+    display_order INTEGER DEFAULT 0,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
+
+-- Foreign key linking Product to Category
+ALTER TABLE public.products ADD CONSTRAINT fk_products_category
+FOREIGN KEY (category_id) REFERENCES public.categories(id) ON DELETE SET NULL;
 
 -- Insert existing products
 INSERT INTO public.products (name, description, image, colSpan) VALUES
@@ -53,10 +67,16 @@ INSERT INTO public.testimonials (quote, author, role) VALUES
 
 -- Enable Row Level Security (RLS)
 ALTER TABLE public.products ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.categories ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.toppings ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.testimonials ENABLE ROW LEVEL SECURITY;
 
 -- Create Policies (Public Read Access)
+CREATE POLICY "Allow public read access for categories" ON public.categories FOR SELECT USING (true);
+CREATE POLICY "Allow authenticated insert for categories" ON public.categories FOR INSERT TO authenticated WITH CHECK (true);
+CREATE POLICY "Allow authenticated update for categories" ON public.categories FOR UPDATE TO authenticated USING (true);
+CREATE POLICY "Allow authenticated delete for categories" ON public.categories FOR DELETE TO authenticated USING (true);
+
 CREATE POLICY "Allow public read access for products" ON public.products FOR SELECT USING (true);
 CREATE POLICY "Allow authenticated insert for products" ON public.products FOR INSERT TO authenticated WITH CHECK (true);
 CREATE POLICY "Allow authenticated update for products" ON public.products FOR UPDATE TO authenticated USING (true);
